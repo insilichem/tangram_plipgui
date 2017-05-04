@@ -10,6 +10,7 @@ import sys
 from tkFileDialog import asksaveasfilename
 # Chimera stuff
 import chimera
+from Midas import MidasError
 # Additional 3rd parties
 
 
@@ -108,8 +109,14 @@ class Controller(object):
 
     def focus_binding_site(self, binding_site):
         resname, chain, resid = binding_site.split(':')
-        chimera.runCommand('show :{}.{} zr < 5'.format(resid, chain))
-        chimera.runCommand('focus :{}.{} zr < 5'.format(resid, chain))
+        try:
+            spec = ':{}.{}'.format(resid, chain) if chain else ':{}'.format(resid)
+            chimera.runCommand('show {} zr < 5'.format(spec))
+            chimera.runCommand('focus {} zr < 5'.format(spec))
+        except MidasError:
+            spec = ':{}'.format(resname)
+            chimera.runCommand('show {} zr < 5'.format(spec))
+            chimera.runCommand('focus {} zr < 5'.format(spec))
 
     def focus_interaction(self, interaction):
         pass
