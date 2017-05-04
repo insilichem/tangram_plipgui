@@ -5,7 +5,6 @@
 from __future__ import print_function, division 
 # Python stdlib
 import Tkinter as tk
-import ttk
 from Pmw import OptionMenu
 from operator import itemgetter
 # Chimera stuff
@@ -175,7 +174,6 @@ class PLIPResultsDialog(ModelessDialog):
 
         self.tables_frame = tk.LabelFrame(parent, text='Found interactions')
         self.tables = {}
-        print('Done')
         
     def fillInData(self, binding_sites):
         binding_sites.sort()

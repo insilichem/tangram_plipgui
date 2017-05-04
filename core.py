@@ -100,7 +100,6 @@ class Controller(object):
         self.gui_results = dialog
 
     def depict(self, binding_site):
-        print(binding_site)
         interaction_set, viewer, view_data = self.interactions[binding_site]
         for method in self._METHODS:
             getattr(viewer, 'show_' + method)()
