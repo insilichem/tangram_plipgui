@@ -8,6 +8,7 @@ import contextlib
 from cStringIO import StringIO
 import sys
 from tkFileDialog import asksaveasfilename
+import Tkinter as tk
 # Chimera stuff
 import chimera
 from Midas import MidasError
@@ -91,12 +92,12 @@ class Controller(object):
         self.check()
         self.model = Model(self.molecule)
 
-        dialog = PLIPResultsDialog(master=self.gui.uiMaster(), 
+        dialog = PLIPResultsDialog(parent=self.gui.parent, 
                                    molecule=self.molecule, controller=self)
         dialog.enter()
-        dialog.fillInData(self.binding_sites)
         dialog.buttonWidgets['Close'].configure(command=self._on_close_cb)
         dialog.buttonWidgets['Save'].configure(command=self._on_save_cb)
+        dialog.fillInData(self.binding_sites)
         self.gui_results = dialog
 
     def depict(self, binding_site):

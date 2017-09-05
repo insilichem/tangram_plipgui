@@ -172,7 +172,7 @@ class PLIPResultsDialog(ModelessDialog):
                                                  command=self._binding_site_cb)
         self.binding_sites_dropdown.pack(padx=5, pady=5)
 
-        self.tables_frame = tk.LabelFrame(parent, text='Found interactions')
+        self.tables_frame = tk.LabelFrame(self.canvas, text='Found interactions')
         self.tables = {}
         
     def fillInData(self, binding_sites):
@@ -216,7 +216,7 @@ class PLIPResultsDialog(ModelessDialog):
             except tk.TclError:
                 t.refresh(rebuild=True)
             t.pack(expand=True, fill='both', padx=5, pady=5)
-            self.canvas.after(100, t.requestFullWidth)
+            self.canvas.after(1000, t.requestFullWidth)
 
         self.tables_frame.pack(expand=True, fill='both', padx=5, pady=5)
         self.controller.depict(binding_site)

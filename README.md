@@ -2,18 +2,16 @@
 
 An UCSF Chimera wrapper and GUI for PLIP.
 
-## Requirements
+## Dependencies that must be manually installed
 
-Mostly, same as PLIP:
+Also:
 
-- lxml
-- openbabel & pybel
 - plip itself
+- openbabel & pybel
 
 ``` 
 cd /your/chimera/extensions/directory
 pip install -t . https://github.com/ssalentin/plip/archive/v1.3.3.zip --no-deps
-pip install -t . lxml
 # read http://openbabel.org/wiki/Category:Installation for openbabel
 ```
 
