@@ -14,6 +14,7 @@ from chimera.widgets import MoleculeScrolledListBox, SortableTable
 # Additional 3rd parties
 
 # Own
+from plumesuite.ui import PlumeBaseDialog
 from core import Controller
 
 """
@@ -50,7 +51,7 @@ BUTTON_STYLE = {
     'highlightthickness': 0,
 }
 
-class PLIPInputDialog(ModelessDialog):
+class PLIPInputDialog(PlumeBaseDialog):
 
     """
     To display a new dialog on the interface, you will normally inherit from
@@ -61,43 +62,20 @@ class PLIPInputDialog(ModelessDialog):
     """
 
     buttons = ('Run', 'Close')
-    default = None
-    help = 'https://www.insilichem.com'
 
-    def __init__(self, *args, **kwarg):
+    def __init__(self, *args, **kwargs):
         # GUI init
         self.title = 'Plume PLIP'
         self.controller = None
 
         # Fire up
-        ModelessDialog.__init__(self)
-        if not chimera.nogui:  # avoid useless errors during development
-            chimera.extension.manager.registerInstance(self)
+        super(PLIPInputDialog, self).__init__(self, *args, **kwargs)
 
-        # Fix styles
-        self._fix_styles()
-
-    def _initialPositionCheck(self, *args):
-        try:
-            ModelessDialog._initialPositionCheck(self, *args)
-        except Exception as e:
-            if not chimera.nogui:  # avoid useless errors during development
-                raise e
-
-    def _fix_styles(self):
-        for name, btn in self.buttonWidgets.items():
-            btn.configure(**BUTTON_STYLE)
-
-    def fillInUI(self, parent):
+    def fill_in_ui(self, parent):
         """
         This is the main part of the interface. With this method you code
         the whole dialog, buttons, textareas and everything.
-        """
-        # Create main window
-        self.parent = parent
-        self.canvas = tk.Frame(parent)
-        self.canvas.pack(expand=True, fill='both')
-        
+        """        
         input_frame = tk.LabelFrame(self.canvas, text='Select a protein-ligand complex')
         input_frame.rowconfigure(0, weight=1)
         input_frame.columnconfigure(1, weight=1)
@@ -121,26 +99,16 @@ class PLIPInputDialog(ModelessDialog):
         self.Apply()
         self.Close()
 
-    def Close(self):
-        """
-        Default! Triggered action if you click on the Close button
-        """
-        global ui
-        ui = None
-        ModelessDialog.Close(self)
-        chimera.extension.manager.deregisterInstance(self)
-        self.destroy()
-
     # Below this line, implement all your custom methods for the GUI.
     def load_controller(self):
         pass
 
 
-class PLIPResultsDialog(ModelessDialog):
+class PLIPResultsDialog(PlumeBaseDialog):
 
     buttons = ('Save', 'Close')
-    def __init__(self, parent=None, molecule=None, controller=None, *args, **kwargs):
-        self.parent = parent
+    
+    def __init__(self, molecule=None, controller=None, *args, **kwargs):
         self.molecule = molecule
         self.controller = controller
         self.title = 'PLIP results'
@@ -150,18 +118,9 @@ class PLIPResultsDialog(ModelessDialog):
         self._binding_site = tk.StringVar()
 
         # Fire up
-        ModelessDialog.__init__(self, *args, **kwargs)
-        if not chimera.nogui:
-            chimera.extension.manager.registerInstance(self)
+        super(PLIPResultsDialog, self).__init__(self, *args, **kwargs)
 
-    def _initialPositionCheck(self, *args):
-        try:
-            ModelessDialog._initialPositionCheck(self, *args)
-        except Exception as e:
-            if not chimera.nogui:
-                raise e
-
-    def fillInUI(self, parent):
+    def fill_in_ui(self, parent):
         self.canvas = tk.Frame(parent)
         self.canvas.pack(expand=True, fill='both', padx=5, pady=5)
         self.canvas.columnconfigure(0, weight=1)

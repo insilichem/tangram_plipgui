@@ -92,8 +92,7 @@ class Controller(object):
         self.check()
         self.model = Model(self.molecule)
 
-        dialog = PLIPResultsDialog(parent=self.gui.parent, 
-                                   molecule=self.molecule, controller=self)
+        dialog = PLIPResultsDialog(molecule=self.molecule, controller=self)
         dialog.enter()
         dialog.buttonWidgets['Close'].configure(command=self._on_close_cb)
         dialog.buttonWidgets['Save'].configure(command=self._on_save_cb)
