@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-# Get used to importing this in your Py27 projects!
+
 from __future__ import print_function, division 
 # Python stdlib
 import contextlib
@@ -55,11 +55,6 @@ from plip.modules import config as plip_config
 plip_config.PLUGIN_MODE = True
 
 
-"""
-This module contains the business logic of your extension. Normally, it should
-contain the Controller and the Model. Read on MVC design if you don't know about it.
-"""
-
 class Controller(object):
 
     _PBNAMES = ('Water Bridges', 'Salt Bridges', 'Hydrophobic Interactions', 
@@ -74,7 +69,6 @@ class Controller(object):
     _PBNAMES_TO_INTERACTIONS = dict((p, i) for (p, i) in zip(_PBNAMES, _INTERACTIONS))
     _INTERACTIONS_TO_PBNAMES = dict((i, p) for (p, i) in zip(_PBNAMES, _INTERACTIONS))
 
-    interactions = {}
     def __init__(self, gui, model=None, *args, **kwargs):
         self.gui = gui
         self.gui_results = None
@@ -123,7 +117,7 @@ class Controller(object):
     @property
     def molecule(self):
         if self._molecule is None:
-            self._molecule = self.gui.molecules.getvalue()
+            self._molecule = self.gui.ui_molecules.getvalue()
         return self._molecule
     
     @property
@@ -183,12 +177,6 @@ class Controller(object):
 
 class Model(object):
 
-    """
-    The model controls the data we work with. Normally, it'd be a Chimera molecule
-    and some input files from other programs. The role of the model is to create
-    a layer around those to allow the easy access and use to the data contained in
-    those files
-    """
 
     def __init__(self, molecule, *args, **kwargs):
         self.molecule = molecule

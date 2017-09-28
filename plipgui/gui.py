@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-# Get used to importing this in your Py27 projects!
+
 from __future__ import print_function, division 
 # Python stdlib
 import Tkinter as tk
@@ -17,49 +17,21 @@ from chimera.widgets import MoleculeScrolledListBox, SortableTable
 from plumesuite.ui import PlumeBaseDialog
 from core import Controller
 
-"""
-The gui.py module contains the interface code, and only that. 
-It should only 'draw' the window, and should NOT contain any
-business logic like parsing files or applying modifications
-to the opened molecules. That belongs to core.py.
-"""
 
-# This is a Chimera thing. Do it, and deal with it.
 ui = None
 def showUI(callback=None):
-    """
-    Requested by Chimera way-of-doing-things
-    """
     if chimera.nogui:
         tk.Tk().withdraw()
     global ui
-    if not ui: # Edit this to reflect the name of the class!
+    if not ui:
         ui = PLIPInputDialog()
     _ = Controller(gui=ui)
     ui.enter()
     if callback:
         ui.addCallback(callback)
 
-ENTRY_STYLE = {
-    'background': 'white',
-    'borderwidth': 1,
-    'highlightthickness': 0,
-    'insertwidth': 1,
-}
-BUTTON_STYLE = {
-    'borderwidth': 1,
-    'highlightthickness': 0,
-}
 
 class PLIPInputDialog(PlumeBaseDialog):
-
-    """
-    To display a new dialog on the interface, you will normally inherit from
-    ModelessDialog class of chimera.baseDialog module. Being modeless means
-    you can have this dialog open while using other parts of the interface.
-    If you don't want this behaviour and instead you want your extension to 
-    claim exclusive usage, use ModalDialog.
-    """
 
     buttons = ('Run', 'Close')
 
@@ -72,34 +44,26 @@ class PLIPInputDialog(PlumeBaseDialog):
         super(PLIPInputDialog, self).__init__(self, *args, **kwargs)
 
     def fill_in_ui(self, parent):
-        """
-        This is the main part of the interface. With this method you code
-        the whole dialog, buttons, textareas and everything.
-        """        
         input_frame = tk.LabelFrame(self.canvas, text='Select a protein-ligand complex')
-        input_frame.rowconfigure(0, weight=1)
-        input_frame.columnconfigure(1, weight=1)
-        self.molecules = MoleculeScrolledListBox(input_frame)
-        self.molecules.filtFunc = lambda m: not m.name.startswith('PLIP-')
-        self.molecules.refresh()
-        self.molecules.grid(row=0, columnspan=3, padx=5, pady=5, sticky='news')
+        self.ui_molecules = MoleculeScrolledListBox(input_frame)
+        self.ui_molecules.filtFunc = lambda m: not m.name.startswith('PLIP-')
+        self.ui_molecules.refresh()
+        self.ui_molecules.pack(padx=5, pady=5, expand=True, fill='both')
 
-        input_frame.pack()
+        input_frame.pack(padx=5, pady=5, expand=True, fill='both')
 
     def Apply(self):
-        """
-        Default! Triggered action if you click on an Apply button
-        """
         pass
 
     def Run(self):
-        """
-        Default! Triggered action if you click on an OK button
-        """
         self.Apply()
         self.Close()
+    
+    def Close(self):
+        global ui
+        ui = None
+        super(PLIPInputDialog, self).Close()
 
-    # Below this line, implement all your custom methods for the GUI.
     def load_controller(self):
         pass
 
@@ -121,23 +85,19 @@ class PLIPResultsDialog(PlumeBaseDialog):
         super(PLIPResultsDialog, self).__init__(self, *args, **kwargs)
 
     def fill_in_ui(self, parent):
-        self.canvas = tk.Frame(parent)
-        self.canvas.pack(expand=True, fill='both', padx=5, pady=5)
-        self.canvas.columnconfigure(0, weight=1)
-
-        self.binding_sites_dropdown = OptionMenu(self.canvas,
+        self.ui_binding_sites_dropdown = OptionMenu(self.canvas,
                                                  labelpos='w',
                                                  label_text='Select binding site:',
                                                  menubutton_textvariable=self._binding_site,
                                                  command=self._binding_site_cb)
-        self.binding_sites_dropdown.pack(padx=5, pady=5)
+        self.ui_binding_sites_dropdown.pack(padx=5, pady=5)
 
-        self.tables_frame = tk.LabelFrame(self.canvas, text='Found interactions')
+        self.ui_tables_frame = tk.LabelFrame(self.canvas, text='Found interactions')
         self.tables = {}
         
     def fillInData(self, binding_sites):
         binding_sites.sort()
-        self.binding_sites_dropdown.setitems(binding_sites)
+        self.ui_binding_sites_dropdown.setitems(binding_sites)
         self._binding_site.set(binding_sites[0])
         self._binding_site_cb(binding_sites[0])
 
@@ -159,10 +119,10 @@ class PLIPResultsDialog(PlumeBaseDialog):
             info = getattr(report, interaction + '_info', None)
             if not info:
                 continue
-            t = self.tables[interaction] = SortableTable(self.tables_frame)
+            t = self.tables[interaction] = SortableTable(self.ui_tables_frame)
             t.checked = tk.IntVar()
             t.checked.set(1)
-            t.label = tk.Checkbutton(self.tables_frame, text=interaction.title(),
+            t.label = tk.Checkbutton(self.ui_tables_frame, text=interaction.title(),
                                      variable=t.checked, command=self._on_checkbox_cb)
             t.label.pack()
 
@@ -178,7 +138,7 @@ class PLIPResultsDialog(PlumeBaseDialog):
             t.pack(expand=True, fill='both', padx=5, pady=5)
             self.canvas.after(1000, t.requestFullWidth)
 
-        self.tables_frame.pack(expand=True, fill='both', padx=5, pady=5)
+        self.ui_tables_frame.pack(expand=True, fill='both', padx=5, pady=5)
         self.controller.depict(binding_site)
 
     def _on_checkbox_cb(self, *args):
