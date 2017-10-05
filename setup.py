@@ -37,5 +37,7 @@ setup(
         'Operating System :: OS Independent',
         'Topic :: Scientific/Engineering :: Chemistry',
     ],
-    install_requires=['lxml'],
+    install_requires=['lxml', 
+                      # 'plip' install this one manually
+                      ],
 )

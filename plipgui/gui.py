@@ -41,7 +41,7 @@ class PLIPInputDialog(PlumeBaseDialog):
         self.controller = None
 
         # Fire up
-        super(PLIPInputDialog, self).__init__(self, *args, **kwargs)
+        super(PLIPInputDialog, self).__init__(*args, **kwargs)
 
     def fill_in_ui(self, parent):
         input_frame = tk.LabelFrame(self.canvas, text='Select a protein-ligand complex')
@@ -82,7 +82,7 @@ class PLIPResultsDialog(PlumeBaseDialog):
         self._binding_site = tk.StringVar()
 
         # Fire up
-        super(PLIPResultsDialog, self).__init__(self, *args, **kwargs)
+        super(PLIPResultsDialog, self).__init__(*args, **kwargs)
 
     def fill_in_ui(self, parent):
         self.ui_binding_sites_dropdown = OptionMenu(self.canvas,
@@ -114,7 +114,8 @@ class PLIPResultsDialog(PlumeBaseDialog):
         kw = {'headerAnchor': 'center', 
               'font': ('Courier', 10),
               'anchor': 'e',
-              'format': '%s'}
+              'format': '%s',
+              'refresh': False}
         for interaction in self.controller._INTERACTIONS:
             info = getattr(report, interaction + '_info', None)
             if not info:
