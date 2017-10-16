@@ -137,7 +137,7 @@ class PLIPResultsDialog(PlumeBaseDialog):
             except tk.TclError:
                 t.refresh(rebuild=True)
             t.pack(expand=True, fill='both', padx=5, pady=5)
-            self.canvas.after(1000, t.requestFullWidth)
+            self.canvas.after(500, t.requestFullWidth)
 
         self.ui_tables_frame.pack(expand=True, fill='both', padx=5, pady=5)
         self.controller.depict(binding_site)
