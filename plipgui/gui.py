@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 
-from __future__ import print_function, division 
+from __future__ import print_function, division
 # Python stdlib
 import Tkinter as tk
 from Pmw import OptionMenu
@@ -19,7 +19,7 @@ from core import Controller
 
 
 ui = None
-def showUI(callback=None):
+def showUI():
     if chimera.nogui:
         tk.Tk().withdraw()
     global ui
@@ -27,8 +27,6 @@ def showUI(callback=None):
         ui = PLIPInputDialog()
     _ = Controller(gui=ui)
     ui.enter()
-    if callback:
-        ui.addCallback(callback)
 
 
 class PLIPInputDialog(PlumeBaseDialog):
@@ -58,7 +56,7 @@ class PLIPInputDialog(PlumeBaseDialog):
     def Run(self):
         self.Apply()
         self.Close()
-    
+
     def Close(self):
         global ui
         ui = None
@@ -71,7 +69,7 @@ class PLIPInputDialog(PlumeBaseDialog):
 class PLIPResultsDialog(PlumeBaseDialog):
 
     buttons = ('Save', 'Close')
-    
+
     def __init__(self, molecule=None, controller=None, *args, **kwargs):
         self.molecule = molecule
         self.controller = controller
@@ -94,7 +92,7 @@ class PLIPResultsDialog(PlumeBaseDialog):
 
         self.ui_tables_frame = tk.LabelFrame(self.canvas, text='Found interactions')
         self.tables = {}
-        
+
     def fillInData(self, binding_sites):
         binding_sites.sort()
         self.ui_binding_sites_dropdown.setitems(binding_sites)
@@ -111,7 +109,7 @@ class PLIPResultsDialog(PlumeBaseDialog):
     def _binding_site_cb(self, binding_site):
         self._clear_tables()
         report = self.controller.interactions[binding_site][0]
-        kw = {'headerAnchor': 'center', 
+        kw = {'headerAnchor': 'center',
               'font': ('Courier', 10),
               'anchor': 'e',
               'format': '%s',
