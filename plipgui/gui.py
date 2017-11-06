@@ -69,6 +69,10 @@ class PLIPInputDialog(PlumeBaseDialog):
 class PLIPResultsDialog(PlumeBaseDialog):
 
     buttons = ('Save', 'Close')
+    help = "https://github.com/insilichem/plume_plipgui"
+    VERSION = '0.0.1'
+    VERSION_URL = "https://api.github.com/repos/insilichem/plume_plipgui/releases/latest"
+
 
     def __init__(self, molecule=None, controller=None, *args, **kwargs):
         self.molecule = molecule
