@@ -19,7 +19,7 @@ def read(*filenames, **kwargs):
 long_description = read('README.md')
 
 setup(
-    name='plume_plip',
+    name='tangram_plip',
     version='0.0.1',
     url='https://github.com/insilichem',
     author='Jaime Rodríguez-Guerra',
@@ -37,7 +37,7 @@ setup(
         'Operating System :: OS Independent',
         'Topic :: Scientific/Engineering :: Chemistry',
     ],
-    install_requires=['lxml', 
+    install_requires=['lxml',
                       # 'plip' install this one manually
                       ],
 )

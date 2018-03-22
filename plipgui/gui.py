@@ -14,7 +14,7 @@ from chimera.widgets import MoleculeScrolledListBox, SortableTable
 # Additional 3rd parties
 
 # Own
-from libplume.ui import PlumeBaseDialog
+from libtangram.ui import TangramBaseDialog
 from core import Controller
 
 
@@ -29,13 +29,13 @@ def showUI():
     ui.enter()
 
 
-class PLIPInputDialog(PlumeBaseDialog):
+class PLIPInputDialog(TangramBaseDialog):
 
     buttons = ('Run', 'Close')
 
     def __init__(self, *args, **kwargs):
         # GUI init
-        self.title = 'Plume PLIP'
+        self.title = 'Tangram PLIP'
         self.controller = None
 
         # Fire up
@@ -66,7 +66,7 @@ class PLIPInputDialog(PlumeBaseDialog):
         pass
 
 
-class PLIPResultsDialog(PlumeBaseDialog):
+class PLIPResultsDialog(TangramBaseDialog):
 
     buttons = ('Save', 'Close')
 

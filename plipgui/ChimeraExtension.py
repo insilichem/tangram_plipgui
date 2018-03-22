@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 
-from __future__ import print_function, division 
+from __future__ import print_function, division
 import chimera
 from Midas.midas_text import doExtensionFunc, addCommand
 from plipgui.core import cmd_plip, cmd_unplip
@@ -11,7 +11,7 @@ from plipgui.core import cmd_plip, cmd_unplip
 class PLIPExtension(chimera.extension.EMO):
 
     def name(self):
-        return 'Plume PLIP'
+        return 'Tangram PLIP'
 
     def description(self):
         return 'Protein-Ligand Interaction Profiler'

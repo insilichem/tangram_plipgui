@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 
-from __future__ import print_function, division 
+from __future__ import print_function, division
 # Python stdlib
 import contextlib
 from cStringIO import StringIO
@@ -57,7 +57,7 @@ plip_config.PLUGIN_MODE = True
 
 class Controller(object):
 
-    _PBNAMES = ('Water Bridges', 'Salt Bridges', 'Hydrophobic Interactions', 
+    _PBNAMES = ('Water Bridges', 'Salt Bridges', 'Hydrophobic Interactions',
                 'HalogenBonds', 'pi-Stacking', 'Hydrogen Bonds', 'Metal Coordination',
                 'Cation-Pi')
     _METHODS = ('wbridges', 'sbridges', 'hydrophobic', 'halogen', 'stacking',
@@ -119,7 +119,7 @@ class Controller(object):
         if self._molecule is None:
             self._molecule = self.gui.ui_molecules.getvalue()
         return self._molecule
-    
+
     @property
     def binding_sites(self):
         if self.model is None:
@@ -151,7 +151,7 @@ class Controller(object):
         return True
 
     def _on_close_cb(self, *args):
-        
+
 
         manager = self.model.molecule_copy.pseudoBondMgr()
         for group in manager.pseudoBondGroups:
@@ -170,7 +170,7 @@ class Controller(object):
                 line = line.strip()
                 if line.startswith('**') and line.endswith('**'):
                     lines[i] = line + '\n'
-            lines.insert(2, "Generated with InsiliChem's Plume PLIP GUI.")
+            lines.insert(2, "Generated with InsiliChem's Tangram PLIP GUI.")
             f.write('\n'.join(lines))
         chimera.statusline.show_message('Report written to {}'.format(path),
                                         blankAfter=5)
@@ -215,7 +215,7 @@ def _duplicate_molecule(molecule):
     """
     Export a PDB copy of the given molecule to a StringIO object
     and load it back. We use this instead of Molecule.copy_molecule
-    because PLIP gets the very same PDB copy, and sometimes this 
+    because PLIP gets the very same PDB copy, and sometimes this
     results in different serial numbers
     """
     stream = StringIO()
