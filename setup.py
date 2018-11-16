@@ -20,7 +20,7 @@ long_description = read('README.md')
 
 setup(
     name='tangram_plip',
-    version='0.0.1',
+    version='0.0.2',
     url='https://github.com/insilichem',
     author='Jaime Rodríguez-Guerra',
     author_email='jaime.rogue@gmail.com',
