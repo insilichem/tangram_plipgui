@@ -16,8 +16,8 @@ conda install -c openbabel openbabel
 ```
 sudo apt install python2.7-openbabel
 pip install plip
-pip install https://github.com/insilichem/libtangram/archive/master.zip
-pip install https://github.com/insilichem/tangram_plipgui/archive/master.zip
+pip install https://github.com/insilichem/libtangram/archive/v0.0.2.zip
+pip install https://github.com/insilichem/tangram_plipgui/archive/v0.0.2.zip
 ```
 
 Then, open UCSF Chimera and add ~/.local/lib/python2.7/site-packages in the
