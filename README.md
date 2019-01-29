@@ -11,6 +11,19 @@ PLIP, the backend for this extension, relies on openbabel as a dependency. Howev
 conda remove rdkit
 conda install -c openbabel openbabel
 ```
+## Standalone installation on Ubuntu
+
+```
+sudo apt install python2.7-openbabel
+pip install plip
+pip install https://github.com/insilichem/libtangram/archive/v0.0.2.zip
+pip install https://github.com/insilichem/tangram_plipgui/archive/v0.0.2.zip
+```
+
+Then, open UCSF Chimera and add ~/.local/lib/python2.7/site-packages in the
+Favorites> Add to Favorites/Toolbar> Third-party plugin locations dialog.
+If everything has worked so far, a new InsiliChem entry must appear in the
+Chimera Tools menu.
 
 ## Standalone installation
 
