@@ -1,0 +1,41 @@
+# Build with:
+# conda build --python=2.7 -c insilichem -c openbabel -c plip .
+
+{% set name = "tangram_plipgui" %}
+
+
+package:
+  name: {{ name|lower }}
+  version: {{ environ.get('GIT_DESCRIBE_TAG', 'v')[1:] }}
+
+source:
+  url: ../
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . --no-deps -vv"
+
+requirements:
+  host:
+    - python
+  run:
+    - python
+    - pychimera     >=0.2.6
+    - libtangram
+    - openbabel
+    - plip
+    - lxml
+
+about:
+  home: http://github.com/insilichem/tangram_plipgui
+  license: MIT
+  license_family: MIT
+
+  summary: 'Depict protein-ligand interactions, as calculated with PLIP, in UCSF Chimera '
+
+  description: |
+    Depict protein-ligand interactions, as calculated with PLIP, in UCSF Chimera.
+  doc_url: http://tangram-suite.readthedocs.io/en/latest/tangram_plipgui.html
+  dev_url: https://github.com/insilichem/tangram_plipgui
+
+
